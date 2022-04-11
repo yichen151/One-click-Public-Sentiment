@@ -1,4 +1,4 @@
-"""历史数据保存和检测的哈函数"""
+"""历史数据保存和检测的函数"""
 # -*- coding: UTF-8 -*-
 import os
 import datetime
