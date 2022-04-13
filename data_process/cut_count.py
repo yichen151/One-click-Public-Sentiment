@@ -17,7 +17,9 @@ class CutCount:
     def cut_words(self, s):
         """使用jieba进行分词"""
         word_count = Counter()
-        words_list = jieba.lcut(s, cut_all=True)
+        user_dict = './resource/user_dict.txt'
+        jieba.load_userdict(user_dict)
+        words_list = jieba.lcut(s, HMM=True, cut_all=True)
         self.words = ' '.join(words_list)
         for word in words_list:
             if len(word) > 1 and word not in self.stop_list:
