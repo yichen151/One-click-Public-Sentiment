@@ -17,6 +17,7 @@ class CutCount:
     def cut_words(self, s):
         """使用jieba进行分词"""
         word_count = Counter()
+        # 加入一些网络热门词
         user_dict = './resource/user_dict.txt'
         jieba.load_userdict(user_dict)
         words_list = jieba.lcut(s, HMM=True, cut_all=True)
