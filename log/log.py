@@ -7,13 +7,13 @@ import datetime
 def save_log(d_class, cut, cloud):
     """这个函数传入要保存的类和CutCount, Cloud两个类自动根据当前时间存放在log下的文件夹"""
     date = datetime.datetime.today()
-    path = f'\\{d_class.name} {date.date()} {date.hour} {date.minute}'
-    folder = os.getcwd() + path
-    is_exists = os.path.exists(folder)
+    path = f'./log/{d_class.name} {date.date()} {date.hour} {date.minute}'
+    # folder = os.getcwd() + path
+    is_exists = os.path.exists(path)
     if not is_exists:
-        os.makedirs(folder)
-        cut_path = folder + '/count.json'
-        cloud_path = folder + '/cloud.jpg'
+        os.makedirs(path)
+        cut_path = path + '/count.json'
+        cloud_path = path + '/cloud.jpg'
         cut.save(cut_path)
         cloud.save(cloud_path)
 

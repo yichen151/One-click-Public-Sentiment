@@ -8,14 +8,14 @@ import matplotlib.pyplot as plt
 class Cloud:
     """生成词云的类"""
     masks = [
-        './resource/mask1.jpg',
-        './resource/mask2.jpg',
-        './resource/mask3.jpg'
+        './data_process/resource/mask1.jpg',
+        './data_process/resource/mask2.jpg',
+        './data_process/resource/mask3.jpg'
     ]
 
     fonts = [
-        './resource/font1/HuaGuangGangTieZhiHei-KeBianTi-2.ttf',
-        './resource/font2/WenYue-ShengHuoJiaTi-J-2.otf'
+        './data_process/resource/font1/HuaGuangGangTieZhiHei-KeBianTi-2.ttf',
+        './data_process/resource/font2/WenYue-ShengHuoJiaTi-J-2.otf'
     ]
 
     def __init__(self, s):
@@ -23,7 +23,7 @@ class Cloud:
         font = self.fonts[random.randint(0, 1)]  # 从字体中随机选一个
         mask_path = self.masks[random.randint(0, 1)]  # 从背景图中随机选一个
         mask = plt.imread(mask_path)
-        stop_file = './resource/stop_list.txt'
+        stop_file = './data_process/resource/stop_list.txt'
         stop_words = set()
         # 读取停用词
         stop_list = [line.strip() for line in open(stop_file, 'r', encoding='utf-8').readlines()]
@@ -32,7 +32,7 @@ class Cloud:
             font_path=font,
             background_color='white',
             mask=mask,
-            max_words=1500,
+            max_words=1000,
             max_font_size=150,
             stopwords=stop_words
         )

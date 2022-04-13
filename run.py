@@ -8,11 +8,10 @@ from log.log import save_log
 
 def run(name):
     """运行函数，传入要运行的源名称"""
-    target = None
     # 检测类别
-    if name is 'WeiBo':
+    if name == 'WeiBo':
         target = WeiBo()
-    elif name is 'XinLang':
+    else:
         target = XinLang()
     # 运行爬取
     target.run()
@@ -23,3 +22,7 @@ def run(name):
     cloud = Cloud(target.s)
     # 保存数据
     save_log(target, cut, cloud)
+
+
+if __name__ == '__main__':
+    run('WeiBo')
