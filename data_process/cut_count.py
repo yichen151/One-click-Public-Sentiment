@@ -25,7 +25,7 @@ class CutCount:
         for word in words_list:
             if len(word) > 1 and word not in self.stop_list:
                 word_count[word] += 1
-        self.count = word_count.most_common(10)
+        self.count = word_count.most_common(15)
 
     def save(self, path):
         """将词频信息保存"""
