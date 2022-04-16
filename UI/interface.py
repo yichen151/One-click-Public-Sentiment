@@ -3,7 +3,7 @@ import sys
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from UI import about
-from log.log import get_current_log
+from log.log import get_current_log, is_log
 from run import run
 
 
@@ -356,10 +356,16 @@ class Ui_Form(QWidget):
         num = self.SearchNum()
         name = self.comboBox_2.currentText()
         if name == "微博热门":
-            run('WeiBo')
+            if is_log('weibo'):
+                pass
+            else:
+                run('WeiBo')
             s, pic = get_current_log('WeiBo', num)
         else:
-            run('XinLang')
+            if is_log('xinlang'):
+                pass
+            else:
+                run('XinLang')
             s, pic = get_current_log('XinLang', num)
 
         self.label_8.setText(s)

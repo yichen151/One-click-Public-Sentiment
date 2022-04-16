@@ -23,14 +23,18 @@ def save_log(d_class, cut, cloud):
     return is_exists
 
 
-def is_log(d_class):
-    """根据对应文件夹是否存在来控制爬取频率"""
+def is_log(name):
+    """
+    根据对应文件夹是否存在来控制爬取频率
+    若存在则直接显示相应文件夹
+    """
     date = datetime.datetime.today()
-    folder = f'./log/{d_class.name} {date.date()} {date.hour} {date.minute}'
+    folder = f'./log/{name} {date.date()} {date.hour} {date.minute}'
     is_exists = os.path.exists(folder)
     if is_exists:
-        return True
-    return False
+        return folder
+    else:
+        return None
 
 
 def get_log():
