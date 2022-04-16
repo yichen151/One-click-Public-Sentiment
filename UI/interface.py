@@ -1,7 +1,7 @@
 """UI主界面"""
-import sys,time
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+import sys
+# from PyQt5.QtGui import *
+# from PyQt5.QtWidgets import *
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 
@@ -11,10 +11,10 @@ from run import run
 
 class Ui_Form(QWidget):
 
-    def __init__(self,parent =None):
+    def __init__(self, parent=None):
         desktop = QApplication.desktop()
         width, height = int(desktop.width()/1.3), int(desktop.height()/1.3)
-        super(Ui_Form,self).__init__(parent)
+        super(Ui_Form, self).__init__(parent)
         self.resize(width, height)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.frame = QFrame(self)
@@ -146,7 +146,7 @@ class Ui_Form(QWidget):
         self.label_3.setGeometry(QRect(int(0.015*width), int(0.035*height3), 400, int(0.025 * height3)))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPixelSize(int(0.025* height3))
+        font.setPixelSize(int(0.025 * height3))
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.comboBox_2 = QComboBox(self.tab)
@@ -339,14 +339,14 @@ class Ui_Form(QWidget):
         QMetaObject.connectSlotsByName(self)
 
     def click_run(self):
-        """点击后运行"""
+        """点击后运行，信息搜取-一键舆情"""
         name = self.comboBox_2.currentText()
         if name == "微博热门":
             run('WeiBo')
-            s = get_current_log('WeiBo')
+            s, c = get_current_log('WeiBo')
         else:
             run('XinLang')
-            s = get_current_log('XinLang')
+            s, c = get_current_log('XinLang')
 
         self.label_8.setText(s)
 

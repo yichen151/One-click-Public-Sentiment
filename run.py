@@ -9,7 +9,7 @@ from log.log import save_log
 def run(name):
     """
     运行函数，传入要运行的源名称
-    WeiBo设定运行30秒，XinLang设定运行1分30秒
+    WeiBo设定运行30秒左右，XinLang设定运行1分钟左右
     """
     # 检测类别
     if name == 'WeiBo':

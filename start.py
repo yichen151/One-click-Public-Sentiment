@@ -10,15 +10,17 @@ class Ui_LoadingWindow(QWidget):
     ProgressBarValue = 0
     LoadingLabelTextValue = 0
 
-    def __init__(self,parent =None):
+    def __init__(self, parent=None):
+        self.timer = None
+        self.open = None
         desktop = QApplication.desktop()
         width, height = int(desktop.width()/3), int(desktop.height()/3)
-        super(Ui_LoadingWindow,self).__init__(parent)
+        super(Ui_LoadingWindow, self).__init__(parent)
         self.resize(width, height)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Tool)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.frame = QFrame(self)
-        self.frame.setGeometry(QRect(0,0,width, height))
+        self.frame.setGeometry(QRect(0, 0, width, height))
         self.frame.setStyleSheet("\n"
                                  "QFrame {    \n"
                                  "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(32, 178, 170, 255), stop:1 rgba(144, 238, 144, 255));    \n"
@@ -46,7 +48,7 @@ class Ui_LoadingWindow(QWidget):
         self.ProgressBar.setOrientation(Qt.Horizontal)
         self.ProgressBar.setObjectName("ProgressBar")
         self.Name = QLabel(self.frame)
-        self.Name.setGeometry(QRect(0, int(height/6), width,int(height/6)))
+        self.Name.setGeometry(QRect(0, int(height/6), width, int(height/6)))
         font = QFont()
         font.setFamily("黑体")
         font.setPointSize(48)
@@ -91,7 +93,7 @@ class Ui_LoadingWindow(QWidget):
         self.timer.start(25)
 
     def load_progress_bar(self):
-        Ui_LoadingWindow.ProgressBarValue+=1
+        Ui_LoadingWindow.ProgressBarValue += 1
         self.ProgressBar.setValue(Ui_LoadingWindow.ProgressBarValue)
         if Ui_LoadingWindow.ProgressBarValue >= 150:
             self.timer.stop()
@@ -100,13 +102,13 @@ class Ui_LoadingWindow(QWidget):
 
     def ChangeLoadingLabel(self):
         i = int(Ui_LoadingWindow.ProgressBarValue/10)
-        if(i >= 10):
+        if i >= 10:
             self.LoadingLabel.setText("加载成功")
-        elif(i%4==1):
+        elif i % 4 == 1:
             self.LoadingLabel.setText("加载中.")
-        elif(i%4==2):
+        elif i % 4 == 2:
             self.LoadingLabel.setText("加载中..")
-        elif(i%4==3):
+        elif i % 4 == 3:
             self.LoadingLabel.setText("加载中...")
         else:
             self.LoadingLabel.setText("加载中")
@@ -114,7 +116,7 @@ class Ui_LoadingWindow(QWidget):
 
 if __name__ == '__main__':
     QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    app =QApplication(sys.argv)
+    app = QApplication(sys.argv)
     win = Ui_LoadingWindow()
     win.show()
     sys.exit(app.exec())
