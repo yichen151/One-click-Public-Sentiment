@@ -45,14 +45,14 @@ def get_log():
 def get_current_log(name, cnt):
     """获取最新得到的数据，并返回处理后的字符串和图片路径"""
     dirs = get_log()
-    if name == 'XinLang':
-        folder = dirs[0]
+    if name == 'WeiBo':
+        folder = dirs[-1]
     else:
         i = 0
         for item in dirs:
             if item[:5] != 'weibo':
                 i += 1
-        folder = dirs[i]
+        folder = dirs[i - 1]
     path = './log/' + folder
     cloud_path = path + '/cloud.jpg'
     count_path = path + '/count.json'

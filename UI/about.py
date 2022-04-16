@@ -81,7 +81,7 @@ class Ui_Form(QWidget):
                                       "    background-color:rgba(255, 255, 255, 200);\n"
                                       "}\n"
                                       "")
-        self.pushButton.clicked.connect(lambda: self.exit())
+        self.pushButton.clicked.connect(lambda: self.close())
 
         self.retranslateUi(self)
         QMetaObject.connectSlotsByName(self)
@@ -95,9 +95,6 @@ class Ui_Form(QWidget):
         self.label_4.setText(_translate("Form", "爬虫程序及数据处理：郭毅"))
         self.label_5.setText(_translate("Form", "UI制作：刘恒坤"))
         self.pushButton.setText(_translate("Form", "确定"))
-
-    def exit(self):
-        sys.exit(5)
 
 
 if __name__ == '__main__':
