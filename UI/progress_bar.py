@@ -17,7 +17,7 @@ class chart_widget(QWidget):
         p.setColor(QPalette.Background, Qt.gray)
         self.setPalette(p)
         self.bg_color = QColor(255, 0, 0)
-        self.startTimer(80)
+        self.time_id = self.startTimer(80)
         self.m_waterOffset = 0.05
         self.m_offset = 50
         self.m_borderwidth = 10
@@ -84,8 +84,9 @@ class chart_widget(QWidget):
 
     def timerEvent(self, event):
         self.per_num += 1
-        if self.per_num == 101:
-            self.per_num = 0
+        if self.per_num == 100:
+            self.killTimer(self.time_id)
+            self.close()
         self.update()
 
 

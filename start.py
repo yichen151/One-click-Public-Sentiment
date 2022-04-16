@@ -1,3 +1,4 @@
+#!.\venv\python.exe
 """UI界面初始化"""
 import sys
 from PyQt5.Qt import *

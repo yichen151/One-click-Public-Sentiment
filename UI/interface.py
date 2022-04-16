@@ -5,11 +5,14 @@ from PyQt5.QtCore import *
 from UI import about
 from log.log import get_current_log, is_log
 from run import run
+import progress_bar
+from threading import Thread
 
 
 class Ui_Form(QWidget):
 
     def __init__(self, parent=None):
+        self.open_ = None
         self.open = None
         self.pm = None
         desktop = QApplication.desktop()
@@ -351,10 +354,15 @@ class Ui_Form(QWidget):
         else:
             return 15
 
+    def progress(self):
+        self.open_ = progress_bar.chart_widget()
+        self.open_.show()
+
     def click_run(self):
         """点击后运行"""
         num = self.SearchNum()
         name = self.comboBox_2.currentText()
+        t = Thread()
         if name == "微博热门":
             if is_log('weibo'):
                 pass
