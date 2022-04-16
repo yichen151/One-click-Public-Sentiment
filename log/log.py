@@ -1,4 +1,7 @@
-"""历史数据保存和检测的函数"""
+"""
+历史数据保存和检测的函数
+文件和文件夹路径以run.py为基准
+"""
 # -*- coding: UTF-8 -*-
 import os
 import datetime
@@ -28,3 +31,12 @@ def is_log(d_class):
         if is_exists:
             return True
     return False
+
+
+def get_log():
+    """读取数据文件夹列表并返回"""
+    dirs = os.listdir('./log/')
+    dirs.remove('log.py')
+    dirs.remove('__pycache__')
+    dirs.sort(reverse=True)
+    return dirs

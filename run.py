@@ -7,7 +7,10 @@ from log.log import save_log
 
 
 def run(name):
-    """运行函数，传入要运行的源名称"""
+    """
+    运行函数，传入要运行的源名称
+    WeiBo设定运行30秒，XinLang设定运行1分30秒
+    """
     # 检测类别
     if name == 'WeiBo':
         target = WeiBo()
@@ -22,7 +25,3 @@ def run(name):
     cloud = Cloud(target.s)
     # 保存数据
     save_log(target, cut, cloud)
-
-
-if __name__ == '__main__':
-    run('WeiBo')
