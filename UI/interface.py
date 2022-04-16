@@ -48,7 +48,7 @@ class Ui_Form(QWidget):
                                       "}\n"
                                       "")
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.close())
+        self.pushButton.clicked.connect(self.close)
         self.pushButton_3 = QPushButton(self.frame)
         self.pushButton_3.setGeometry(QRect(int(0.92*width), 20, int(0.03*width), 30))
         font = QFont()

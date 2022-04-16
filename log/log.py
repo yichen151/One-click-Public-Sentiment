@@ -1,6 +1,6 @@
 """
 历史数据保存和检测的函数
-文件和文件夹路径以run.py为基准
+文件和文件夹相对路径以run.py为基准
 """
 # -*- coding: UTF-8 -*-
 import os
@@ -34,23 +34,25 @@ def is_log(d_class):
 
 
 def get_log():
-    """读取数据文件夹列表并返回"""
+    """读取数据文件夹列表（升序）并返回"""
     dirs = os.listdir('./log/')
     dirs.remove('log.py')
     dirs.remove('__pycache__')
-    dirs.sort(reverse=True)
+    dirs.sort()
     return dirs
 
 
 def get_current_log(name, cnt):
     """获取最新得到的数据，并返回处理后的字符串和图片路径"""
     dirs = get_log()
-    if name == 'WeiBo':
+    if name == 'XinLang':
+        # 新浪直接取最后一个
         folder = dirs[-1]
     else:
+        # 微博要查找
         i = 0
         for item in dirs:
-            if item[:5] != 'weibo':
+            if item[:5] == 'weibo':
                 i += 1
         folder = dirs[i - 1]
     path = './log/' + folder
@@ -61,10 +63,7 @@ def get_current_log(name, cnt):
     s = ''
     i = 0
     for key, value in dirt.items():
-        s += key
-        s += ':'
-        s += str(value)
-        s += '\n'
+        s += key + ':' + str(value) + '\n'
         i += 1
         if i == cnt:
             break

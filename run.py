@@ -1,3 +1,4 @@
+"""整合数据爬取和处理函数run"""
 # -*- coding: UTF-8 -*-
 from data_class.weibo import WeiBo
 from data_class.xinlang import XinLang

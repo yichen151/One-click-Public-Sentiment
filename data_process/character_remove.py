@@ -3,7 +3,7 @@
 import re
 BracketsRe = re.compile(r'\[.*?]')  # 中括号表情
 UrlRe = re.compile(r'http://.*')  # 网址
-SymbolRe = re.compile(r"#|@|【|】")  # 字符
+SymbolRe = re.compile(r"#|@|【|】|《|》|")  # 字符
 BlankRe = re.compile(r'\s')  # 空白符
 expressions = [BracketsRe, UrlRe, SymbolRe]
 

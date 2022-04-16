@@ -10,9 +10,7 @@ class Cloud:
     masks = [
         './data_process/resource/mask1.jpg',
         './data_process/resource/mask2.jpg',
-        './data_process/resource/mask3.jpg'
     ]
-
     fonts = [
         './data_process/resource/font1/HuaGuangGangTieZhiHei-KeBianTi-2.ttf',
         './data_process/resource/font2/WenYue-ShengHuoJiaTi-J-2.otf'
@@ -32,8 +30,8 @@ class Cloud:
             font_path=font,
             background_color='white',
             mask=mask,
-            max_words=1000,
-            max_font_size=200,
+            max_words=500,
+            max_font_size=150,
             stopwords=stop_words
         )
         self.cloud.generate(s)
