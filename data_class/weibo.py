@@ -56,7 +56,7 @@ class WeiBo:
                         text = get_rid(text_raw)
                         texts.append(text)
             self.comments_lists.append(texts)
-        except aiohttp.ContentTypeError:
+        except aiohttp.ClientConnectorError and aiohttp.ClientConnectionError:
             pass
 
     async def main(self):

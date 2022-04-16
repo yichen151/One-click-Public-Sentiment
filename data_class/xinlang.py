@@ -4,7 +4,6 @@ import aiohttp
 import requests
 import asyncio
 from lxml import etree
-from concurrent.futures import ThreadPoolExecutor
 from data_process.character_remove import get_rid_blank
 
 
@@ -25,14 +24,16 @@ class XinLang:
     def get_page_urls(self):
         """爬取滚动页面上的url"""
         data = []
-        with ThreadPoolExecutor(10):
-            for i in range(1, 11):
-                url = self.base_url + f'{i}'
+        for i in range(1, 11):
+            url = self.base_url + f'{i}'
+            try:
                 response = requests.get(url, headers=self.headers)
                 data.append(response.json()['result']['data'])
-            for info in data:
-                for dic in info:
-                    self.urls.append(dic['url'])
+            except ConnectionError and ConnectionRefusedError:
+                pass
+        for info in data:
+            for dic in info:
+                self.urls.append(dic['url'])
 
     async def get_text(self, url):
         """爬取新闻页面中的文本"""

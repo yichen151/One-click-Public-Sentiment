@@ -1,3 +1,4 @@
+#!.\venv\Scripts\python.exe
 """文本处理函数"""
 # -*- coding: UTF-8 -*-
 import re

@@ -1,3 +1,4 @@
+#!.\venv\Scripts\python.exe
 """生成词云的类"""
 # -*- coding: UTF-8 -*-
 import wordcloud

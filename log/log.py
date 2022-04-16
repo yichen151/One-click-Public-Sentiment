@@ -6,6 +6,7 @@
 import os
 import datetime
 import json
+import re
 
 
 def save_log(d_class, cut, cloud):
@@ -51,7 +52,10 @@ def get_current_log(name, cnt):
     dirs = get_log()
     if name == 'XinLang':
         # 新浪直接取最后一个
-        folder = dirs[-1]
+        i = -1
+        while dirs[i][:7] == 'xinlang':
+            i -= 1
+        folder = dirs[i + 1]
     else:
         # 微博要查找
         i = 0
@@ -60,6 +64,44 @@ def get_current_log(name, cnt):
                 i += 1
         folder = dirs[i - 1]
     path = './log/' + folder
+    cloud_path = path + '/cloud.jpg'
+    count_path = path + '/count.json'
+    with open(count_path, 'r', encoding='utf-8') as fp:
+        dirt = json.load(fp)
+    s = ''
+    i = 0
+    for key, value in dirt.items():
+        s += key + ':' + str(value) + '\n'
+        i += 1
+        if i == cnt:
+            break
+    return s, cloud_path
+
+
+def get_history_log():
+    """获取历史最新的十个文件夹"""
+    pattern = re.compile(r' (?P<time>20.*)')
+    dirs = get_log()
+    i = 0
+    lis = []
+    for item in dirs:
+        se = re.search(pattern, item)
+        time = se.group('time')
+        lis.append((time, i))
+        i += 1
+    # 将时间和编号的元组列表降序排序
+    for i in range(len(lis) - 1):
+        min_ = i
+        for j in range(i + 1, len(lis)):
+            if lis[j][0] > lis[min_][0]:
+                min_ = j
+                lis[min_], lis[i] = lis[i], lis[min_]
+    re_list = [dirs[comb[1]] for comb in lis[:10]]
+    return re_list
+
+
+def get_exact_log(log_name, cnt):
+    path = './log/' + log_name
     cloud_path = path + '/cloud.jpg'
     count_path = path + '/count.json'
     with open(count_path, 'r', encoding='utf-8') as fp:

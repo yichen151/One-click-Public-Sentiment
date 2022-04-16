@@ -3,10 +3,9 @@ import sys
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from UI import about
-from log.log import get_current_log, is_log
+from log.log import get_current_log, is_log, get_history_log, get_exact_log
 from run import run
-import progress_bar
-from threading import Thread
+from UI import progress_bar
 
 
 class Ui_Form(QWidget):
@@ -243,8 +242,7 @@ class Ui_Form(QWidget):
         self.comboBox.setFont(font)
         self.comboBox.setFocusPolicy(Qt.StrongFocus)
         self.comboBox.setObjectName("comboBox_2")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
+        self.HistoryUpdate()
         self.scrollArea_2 = QScrollArea(self.tab_3)
         self.scrollArea_2.setGeometry(QRect(int(0.015*width), int(0.15*height3), int(0.45*width), int(0.75*height3)))
         self.scrollArea_2.setMinimumSize(QSize(0, 0))
@@ -283,6 +281,7 @@ class Ui_Form(QWidget):
                                          "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(16, 171, 255, 250), stop:1 rgba(15, 251, 255, 250));\n"
                                          "}")
         self.pushButton_14.setObjectName("pushButton_13")
+        self.pushButton_14.clicked.connect(self.click_history)
         self.label_38 = QLabel(self.tab_3)
         self.label_38.setGeometry(QRect(int(0.015*width), int(0.09*height3), int(0.45*width), int(0.045 * height3)))
         font = QFont()
@@ -297,11 +296,10 @@ class Ui_Form(QWidget):
         font.setPixelSize(int(0.03 * height3))
         self.label_22.setFont(font)
         self.label_22.setObjectName("label_22")
-        self.frame_4 = QFrame(self.tab_3)
-        self.frame_4.setGeometry(QRect(int(0.515*width), int(0.15*height3), int(0.45*width), int(0.75*height3)))
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.frame_4.setObjectName("frame_3")
+        self.historypicture = QLabel(self.tab_3)
+        self.historypicture.setGeometry(
+            QRect(int(0.515 * width), int(0.15 * height3), int(0.45 * width), int(0.75 * height3)))
+        self.historypicture.setObjectName("picture")
         self.tabWidget.addTab(self.tab_3, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -362,7 +360,6 @@ class Ui_Form(QWidget):
         """点击后运行"""
         num = self.SearchNum()
         name = self.comboBox_2.currentText()
-        t = Thread()
         if name == "微博热门":
             if is_log('weibo'):
                 pass
@@ -380,10 +377,27 @@ class Ui_Form(QWidget):
         self.pm = QPixmap(pic)
         self.picture.setPixmap(self.pm)
         self.picture.setScaledContents(True)
+        self.HistoryUpdate()
 
     def OpenAbout(self):
         self.open = about.Ui_Form()
         self.open.show()
+
+    def HistoryUpdate(self):
+        self.comboBox.clear()
+        s_list = get_history_log()
+        for s in s_list:
+            self.comboBox.addItem(s)
+
+    def click_history(self):
+        num = self.SearchNum()
+        time = self.comboBox.currentText()
+        s, pic = get_exact_log(time, num)
+        self.label_36.setText(s)
+        PictureFile = pic
+        self.pm = QPixmap(PictureFile)
+        self.historypicture.setPixmap(self.pm)
+        self.historypicture.setScaledContents(True)
 
     def retranslateUi(self, Form):
         _translate = QCoreApplication.translate
@@ -400,8 +414,6 @@ class Ui_Form(QWidget):
         self.label_6.setText(_translate("Form", "舆情数据："))
         self.label_7.setText(_translate("Form", "词云图："))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "信息搜取"))
-        self.comboBox.setItemText(0, _translate("Form", "时间1"))
-        self.comboBox.setItemText(1, _translate("Form", "时间2"))
         self.label_2.setText(_translate("Form", "时间："))
         self.pushButton_14.setText(_translate("Form", "一键查询"))
         self.label_22.setText(_translate("Form", "词云图："))
