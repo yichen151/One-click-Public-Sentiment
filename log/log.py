@@ -42,7 +42,7 @@ def get_log():
     return dirs
 
 
-def get_current_log(name):
+def get_current_log(name, cnt):
     """获取最新得到的数据，并返回处理后的字符串和图片路径"""
     dirs = get_log()
     if name == 'XinLang':
@@ -59,9 +59,13 @@ def get_current_log(name):
     with open(count_path, 'r', encoding='utf-8') as fp:
         dirt = json.load(fp)
     s = ''
+    i = 0
     for key, value in dirt.items():
         s += key
         s += ':'
         s += str(value)
         s += '\n'
+        i += 1
+        if i == cnt:
+            break
     return s, cloud_path

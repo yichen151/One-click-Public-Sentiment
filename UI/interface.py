@@ -4,6 +4,7 @@ from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from log.log import get_current_log
 from run import run
+from threading import Thread
 
 
 class Ui_Form(QWidget):
@@ -337,6 +338,7 @@ class Ui_Form(QWidget):
 
     def click_run(self):
         """点击后运行，信息搜取-一键舆情"""
+        t = Thread()
         name = self.comboBox_2.currentText()
         if name == "微博热门":
             run('WeiBo')
