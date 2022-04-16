@@ -5,6 +5,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import datetime
+import json
 
 
 def save_log(d_class, cut, cloud):
@@ -40,3 +41,28 @@ def get_log():
     dirs.remove('__pycache__')
     dirs.sort(reverse=True)
     return dirs
+
+
+def get_current_log(name):
+    """获取最新得到的数据，并返回字符串"""
+    dirs = get_log()
+    if name == 'XinLang':
+        folder = dirs[0]
+    else:
+        i = 0
+        for item in dirs:
+            if item[:5] != 'weibo':
+                i += 1
+        folder = dirs[i]
+    path = './log/' + folder
+    # cloud_path = path + '/cloud.jpg'
+    count_path = path + '/count.json'
+    with open(count_path, 'r', encoding='utf-8') as fp:
+        dirt = json.load(fp)
+    s = ''
+    for key, value in dirt.items():
+        s += key
+        s += ':'
+        s += str(value)
+        s += '\n'
+    return s
