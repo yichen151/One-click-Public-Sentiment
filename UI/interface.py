@@ -2,14 +2,16 @@
 import sys
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
+import about
 from log.log import get_current_log
 from run import run
-from threading import Thread
 
 
 class Ui_Form(QWidget):
 
     def __init__(self, parent=None):
+        self.open = None
+        self.pm = None
         desktop = QApplication.desktop()
         width, height = int(desktop.width()/1.3), int(desktop.height()/1.3)
         super(Ui_Form, self).__init__(parent)
@@ -90,7 +92,13 @@ class Ui_Form(QWidget):
                                         "{\n"
                                         "    background-color:rgba(254, 255, 167, 150);\n"
                                         "}\n"
+                                        "QPushButton::menu-indicator{image:none;}"
                                         "")
+        menu = QMenu()
+        About = QAction("关于...", parent=menu)
+        menu.addAction(About)
+        About.triggered.connect(self.OpenAbout)
+        self.pushButton_4.setMenu(menu)
         self.pushButton_4.setObjectName("pushButton_4")
         self.frame_2 = QFrame(self)
         height2 = height-70
@@ -144,7 +152,7 @@ class Ui_Form(QWidget):
         self.label_3.setGeometry(QRect(int(0.015*width), int(0.035*height3), 400, int(0.025 * height3)))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPixelSize(int(0.025 * height3))
+        font.setPixelSize(int(0.025* height3))
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.comboBox_2 = QComboBox(self.tab)
@@ -310,24 +318,25 @@ class Ui_Form(QWidget):
         self.label_40.setFont(font)
         self.label_40.setObjectName("label_40")
         self.radioButton = QRadioButton(self.tab_2)
-        self.radioButton.setGeometry(QRect(40, 290, 85, 20))
+        self.radioButton.setGeometry(int(0.015*width), int(0.15*height3), int(0.45*width), int(0.04*height3))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPointSize(16)
+        font.setPixelSize(int(0.03*height3))
         self.radioButton.setFont(font)
         self.radioButton.setObjectName("radioButton")
         self.radioButton_2 = QRadioButton(self.tab_2)
-        self.radioButton_2.setGeometry(QRect(150, 290, 85, 20))
+        self.radioButton_2.setGeometry(int(0.07*width), int(0.15*height3), int(0.45*width), int(0.04*height3))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPointSize(16)
+        font.setPixelSize(int(0.03*height3))
         self.radioButton_2.setFont(font)
+        self.radioButton_2.setChecked(True)
         self.radioButton_2.setObjectName("radioButton_2")
         self.radioButton_3 = QRadioButton(self.tab_2)
-        self.radioButton_3.setGeometry(QRect(250, 290, 85, 20))
+        self.radioButton_3.setGeometry(QRect(int(0.125*width), int(0.15*height3), int(0.45*width), int(0.04*height3)))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPointSize(16)
+        font.setPixelSize(int(0.03*height3))
         self.radioButton_3.setFont(font)
         self.radioButton_3.setObjectName("radioButton_3")
         self.tabWidget.addTab(self.tab_2, "")
@@ -336,18 +345,33 @@ class Ui_Form(QWidget):
         self.tabWidget.setCurrentIndex(0)
         QMetaObject.connectSlotsByName(self)
 
+    def SearchNum(self):
+        if self.radioButton.isChecked():
+            return 5
+        elif self.radioButton_2.isChecked():
+            return 10
+        else:
+            return 15
+
     def click_run(self):
-        """点击后运行，信息搜取-一键舆情"""
-        t = Thread()
+        """点击后运行"""
+        num = self.SearchNum()
         name = self.comboBox_2.currentText()
         if name == "微博热门":
             run('WeiBo')
-            s, c = get_current_log('WeiBo')
+            s, pic = get_current_log('WeiBo', num)
         else:
             run('XinLang')
-            s, c = get_current_log('XinLang')
+            s, pic = get_current_log('XinLang', num)
 
         self.label_8.setText(s)
+        self.pm = QPixmap(pic)
+        self.picture.setPixmap(self.pm)
+        self.picture.setScaledContents(True)
+
+    def OpenAbout(self):
+        self.open = about.Ui_Form()
+        self.open.show()
 
     def retranslateUi(self, Form):
         _translate = QCoreApplication.translate

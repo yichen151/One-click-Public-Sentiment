@@ -6,7 +6,6 @@ from UI import interface
 
 
 class Ui_LoadingWindow(QWidget):
-
     ProgressBarValue = 0
     LoadingLabelTextValue = 0
 
@@ -14,7 +13,7 @@ class Ui_LoadingWindow(QWidget):
         self.timer = None
         self.open = None
         desktop = QApplication.desktop()
-        width, height = int(desktop.width()/3), int(desktop.height()/3)
+        width, height = int(desktop.width() / 3), int(desktop.height() / 3)
         super(Ui_LoadingWindow, self).__init__(parent)
         self.resize(width, height)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Tool)
@@ -30,7 +29,7 @@ class Ui_LoadingWindow(QWidget):
         self.frame.setFrameShadow(QFrame.Sunken)
         self.frame.setObjectName("frame")
         self.ProgressBar = QProgressBar(self.frame)
-        self.ProgressBar.setGeometry(QRect(int(width/6), int(3*height/4), int(2*width/3), int(height/9)))
+        self.ProgressBar.setGeometry(QRect(int(width / 6), int(3 * height / 4), int(2 * width / 3), int(height / 9)))
         self.ProgressBar.setStyleSheet("QProgressBar\n"
                                        "{\n"
                                        "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(227, 227, 227, 255), stop:1 rgba(156, 156, 156, 255));\n"
@@ -48,10 +47,10 @@ class Ui_LoadingWindow(QWidget):
         self.ProgressBar.setOrientation(Qt.Horizontal)
         self.ProgressBar.setObjectName("ProgressBar")
         self.Name = QLabel(self.frame)
-        self.Name.setGeometry(QRect(0, int(height/6), width, int(height/6)))
+        self.Name.setGeometry(QRect(0, int(height / 7), width, int(height / 4)))
         font = QFont()
         font.setFamily("黑体")
-        font.setPointSize(48)
+        font.setPiexlSize(height / 3.5)
         font.setBold(False)
         font.setWeight(50)
         self.Name.setFont(font)
@@ -62,10 +61,10 @@ class Ui_LoadingWindow(QWidget):
         self.Name.setObjectName("Name")
         self.Name.setAlignment(Qt.AlignCenter)
         self.LoadingLabel = QLabel(self.frame)
-        self.LoadingLabel.setGeometry(QRect(0, int(height/2), width, int(height/8)))
+        self.LoadingLabel.setGeometry(QRect(0, int(height / 2), width, int(height / 8)))
         font = QFont()
         font.setFamily("黑体")
-        font.setPointSize(20)
+        font.setPiexlSize(int(height / 9))
         font.setBold(False)
         font.setWeight(50)
         self.LoadingLabel.setFont(font)
@@ -101,7 +100,7 @@ class Ui_LoadingWindow(QWidget):
             self.open.show()
 
     def ChangeLoadingLabel(self):
-        i = int(Ui_LoadingWindow.ProgressBarValue/10)
+        i = int(Ui_LoadingWindow.ProgressBarValue / 10)
         if i >= 10:
             self.LoadingLabel.setText("加载成功")
         elif i % 4 == 1:
