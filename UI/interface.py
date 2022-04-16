@@ -2,7 +2,6 @@
 import sys
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
-
 from log.log import get_current_log
 from run import run
 
