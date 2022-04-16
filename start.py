@@ -9,6 +9,7 @@ class Ui_LoadingWindow(QWidget):
 
     ProgressBarValue = 0
     LoadingLabelTextValue = 0
+
     def __init__(self,parent =None):
         desktop = QApplication.desktop()
         width, height = int(desktop.width()/3), int(desktop.height()/3)

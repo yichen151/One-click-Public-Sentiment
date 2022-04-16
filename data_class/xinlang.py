@@ -25,8 +25,8 @@ class XinLang:
     def get_page_urls(self):
         """爬取滚动页面上的url"""
         data = []
-        with ThreadPoolExecutor(15):
-            for i in range(1, 16):
+        with ThreadPoolExecutor(10):
+            for i in range(1, 11):
                 url = self.base_url + f'{i}'
                 response = requests.get(url, headers=self.headers)
                 data.append(response.json()['result']['data'])
@@ -36,20 +36,23 @@ class XinLang:
 
     async def get_text(self, url):
         """爬取新闻页面中的文本"""
-        async with aiohttp.ClientSession(headers=self.headers) as session:
-            async with session.get(url) as response:
-                html = await response.text()
-                tree = etree.HTML(html)
-                try:
-                    title = tree.xpath('/html/body/div/h1[@class="main-title"]/text()')[0]
-                except IndexError:
-                    title = ''
-                texts = tree.xpath('/html/body/*//p[@cms-style="font-L"]/text()')
-                if title:
-                    texts.append(title)
-                if texts:
-                    get_rid_blank(texts)
-                    self.texts.append(texts)
+        try:
+            async with aiohttp.ClientSession(headers=self.headers) as session:
+                async with session.get(url) as response:
+                    html = await response.text()
+                    tree = etree.HTML(html)
+                    try:
+                        title = tree.xpath('/html/body/div/h1[@class="main-title"]/text()')[0]
+                    except IndexError:
+                        title = ''
+                    texts = tree.xpath('/html/body/*//p[@cms-style="font-L"]/text()')
+                    if title:
+                        texts.append(title)
+                    if texts:
+                        get_rid_blank(texts)
+                        self.texts.append(texts)
+        except aiohttp.ContentTypeError:
+            pass
 
     async def text_main(self):
         """爬去文本，协程方法"""

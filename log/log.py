@@ -24,13 +24,12 @@ def save_log(d_class, cut, cloud):
 
 
 def is_log(d_class):
-    """根据对应文件夹是否存在来控制爬取频率：10分钟一次"""
+    """根据对应文件夹是否存在来控制爬取频率"""
     date = datetime.datetime.today()
-    for i in range(0, 11):
-        folder = f'./log/{d_class.name} {date.date()} {date.hour} {date.minute - i}'
-        is_exists = os.path.exists(folder)
-        if is_exists:
-            return True
+    folder = f'./log/{d_class.name} {date.date()} {date.hour} {date.minute}'
+    is_exists = os.path.exists(folder)
+    if is_exists:
+        return True
     return False
 
 
@@ -44,7 +43,7 @@ def get_log():
 
 
 def get_current_log(name):
-    """获取最新得到的数据，并返回字符串"""
+    """获取最新得到的数据，并返回处理后的字符串和图片路径"""
     dirs = get_log()
     if name == 'XinLang':
         folder = dirs[0]
@@ -55,7 +54,7 @@ def get_current_log(name):
                 i += 1
         folder = dirs[i]
     path = './log/' + folder
-    # cloud_path = path + '/cloud.jpg'
+    cloud_path = path + '/cloud.jpg'
     count_path = path + '/count.json'
     with open(count_path, 'r', encoding='utf-8') as fp:
         dirt = json.load(fp)
@@ -65,4 +64,4 @@ def get_current_log(name):
         s += ':'
         s += str(value)
         s += '\n'
-    return s
+    return s, cloud_path
