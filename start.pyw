@@ -90,7 +90,7 @@ class Ui_LoadingWindow(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.load_progress_bar)
         self.timer.timeout.connect(self.ChangeLoadingLabel)
-        self.timer.start(25)
+        self.timer.start(20)
 
     def load_progress_bar(self):
         Ui_LoadingWindow.ProgressBarValue += 1
@@ -115,7 +115,6 @@ class Ui_LoadingWindow(QWidget):
 
 
 if __name__ == '__main__':
-    QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
     win = Ui_LoadingWindow()
     win.show()

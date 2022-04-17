@@ -1,5 +1,5 @@
 """UI主界面"""
-import sys
+import sys, time
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from UI import about
@@ -135,7 +135,7 @@ class Ui_Form(QWidget):
                                      "    border-bottom:none;\n"
                                      "    background:rgba(173, 173, 173,120);\n"
                                      "    color:black;\n"
-                                     "    min-width:" + str(width/3) +
+                                     "    min-width:" + str(width/3 - 1) +
                                      ";\n"
                                      "    min-height:" + str(height2/11) +
                                      ";\n"
@@ -188,6 +188,14 @@ class Ui_Form(QWidget):
         self.label_8.setAlignment(Qt.AlignTop)
         self.label_8.setObjectName("label_8")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.waitinglabel = QLabel(self.tab)
+        self.waitinglabel.setGeometry(
+            QRect(int(0.5 * width), int(0.027 * height3), int(0.25 * width), int(0.045 * height3)))
+        font = QFont()
+        font.setFamily("Agency FB")
+        font.setPixelSize(int(0.03 * height3))
+        self.waitinglabel.setFont(font)
+        self.waitinglabel.setText("爬取时间可能略长，请耐心等待哦~")
         self.pushButton_13 = QPushButton(self.tab)
         self.pushButton_13.setGeometry(QRect(int(0.4*width), int(0.027*height3), int(0.08*width), int(0.045 * height3)))
         font = QFont()
@@ -374,7 +382,6 @@ class Ui_Form(QWidget):
             else:
                 run('XinLang')
             s, pic = get_current_log('XinLang', num)
-
         self.label_8.setText(s)
         self.pm = QPixmap(pic)
         self.picture.setPixmap(self.pm)
@@ -397,12 +404,12 @@ class Ui_Form(QWidget):
 
     def click_history(self):
         num = self.SearchNum()
-        time = self.comboBox.currentText()
+        time_ = self.comboBox.currentText()
         wei = re.compile(r'微博热门')
         xin = re.compile(r'新浪新闻')
-        time = re.sub(wei, 'weibo', time)
-        time = re.sub(xin, 'xinlang', time)
-        s, pic = get_exact_log(time, num)
+        time_ = re.sub(wei, 'weibo', time_)
+        time_ = re.sub(xin, 'xinlang', time_)
+        s, pic = get_exact_log(time_, num)
         self.label_36.setText(s)
         PictureFile = pic
         self.pm = QPixmap(PictureFile)
@@ -442,7 +449,6 @@ class Ui_Form(QWidget):
 
 
 if __name__ == '__main__':
-    QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
     win = Ui_Form()
     win.show()

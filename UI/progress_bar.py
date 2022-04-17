@@ -17,7 +17,7 @@ class chart_widget(QWidget):
         p.setColor(QPalette.Background, Qt.gray)
         self.setPalette(p)
         self.bg_color = QColor(255, 0, 0)
-        self.time_id = self.startTimer(80)
+        self.time_id = self.startTimer(20)
         self.m_waterOffset = 0.05
         self.m_offset = 50
         self.m_borderwidth = 10
