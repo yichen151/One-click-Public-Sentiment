@@ -6,6 +6,7 @@ from UI import about
 from log.log import get_current_log, is_log, get_history_log, get_exact_log
 from run import run
 from UI import progress_bar
+import re
 
 
 class Ui_Form(QWidget):
@@ -386,13 +387,21 @@ class Ui_Form(QWidget):
 
     def HistoryUpdate(self):
         self.comboBox.clear()
+        wei = re.compile(r'weibo')
+        xin = re.compile(r'xinlang')
         s_list = get_history_log()
         for s in s_list:
+            s = re.sub(wei, '微博热门', s)
+            s = re.sub(xin, '新浪新闻', s)
             self.comboBox.addItem(s)
 
     def click_history(self):
         num = self.SearchNum()
         time = self.comboBox.currentText()
+        wei = re.compile(r'微博热门')
+        xin = re.compile(r'新浪新闻')
+        time = re.sub(wei, 'weibo', time)
+        time = re.sub(xin, 'xinlang', time)
         s, pic = get_exact_log(time, num)
         self.label_36.setText(s)
         PictureFile = pic
