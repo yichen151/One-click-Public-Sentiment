@@ -32,7 +32,7 @@ class Cloud:
             background_color='white',
             mask=mask,
             max_words=500,
-            max_font_size=150,
+            max_font_size=200,
             stopwords=stop_words
         )
         self.cloud.generate(s)

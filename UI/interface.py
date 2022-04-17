@@ -1,11 +1,9 @@
 """UI主界面"""
-import sys, time
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from UI import about
 from log.log import get_current_log, is_log, get_history_log, get_exact_log
 from run import run
-from UI import progress_bar
 import re
 
 
@@ -314,38 +312,41 @@ class Ui_Form(QWidget):
         self.tab_2 = QWidget()
         self.tab_2.setObjectName("tab_2")
         self.label_41 = QLabel(self.tab_2)
-        self.label_41.setGeometry(QRect(int(0.015*width), int(0.04*height3), int(0.45*width), int(0.04*height3)))
+        self.label_41.setGeometry(
+            QRect(int(0.015 * width), int(0.04 * height3), int(0.45 * width), int(0.04 * height3)))
         self.label_41.setObjectName("label_41")
         self.label_42 = QLabel(self.tab_2)
-        self.label_42.setGeometry(QRect(30, 360, 911, 16))
+        self.label_42.setGeometry(QRect(int(0.015 * width), int(0.2 * height3), int(0.45 * width), int(0.04 * height3)))
         self.label_42.setObjectName("label_42")
         self.label_40 = QLabel(self.tab_2)
-        self.label_40.setGeometry(QRect(int(0.015*width), int(0.04*height3), int(0.45*width), int(0.04*height3)))
+        self.label_40.setGeometry(
+            QRect(int(0.015 * width), int(0.08 * height3), int(0.45 * width), int(0.04 * height3)))
         font = QFont()
         font.setFamily("Agency FB")
         font.setPointSize(14)
         self.label_40.setFont(font)
         self.label_40.setObjectName("label_40")
         self.radioButton = QRadioButton(self.tab_2)
-        self.radioButton.setGeometry(int(0.015*width), int(0.15*height3), int(0.45*width), int(0.04*height3))
+        self.radioButton.setGeometry(int(0.015 * width), int(0.15 * height3), int(0.45 * width), int(0.04 * height3))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPixelSize(int(0.03*height3))
+        font.setPixelSize(int(0.03 * height3))
         self.radioButton.setFont(font)
         self.radioButton.setObjectName("radioButton")
         self.radioButton_2 = QRadioButton(self.tab_2)
-        self.radioButton_2.setGeometry(int(0.07*width), int(0.15*height3), int(0.45*width), int(0.04*height3))
+        self.radioButton_2.setGeometry(int(0.07 * width), int(0.15 * height3), int(0.45 * width), int(0.04 * height3))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPixelSize(int(0.03*height3))
+        font.setPixelSize(int(0.03 * height3))
         self.radioButton_2.setFont(font)
         self.radioButton_2.setChecked(True)
         self.radioButton_2.setObjectName("radioButton_2")
         self.radioButton_3 = QRadioButton(self.tab_2)
-        self.radioButton_3.setGeometry(QRect(int(0.125*width), int(0.15*height3), int(0.45*width), int(0.04*height3)))
+        self.radioButton_3.setGeometry(
+            QRect(int(0.125 * width), int(0.15 * height3), int(0.45 * width), int(0.04 * height3)))
         font = QFont()
         font.setFamily("Agency FB")
-        font.setPixelSize(int(0.03*height3))
+        font.setPixelSize(int(0.03 * height3))
         self.radioButton_3.setFont(font)
         self.radioButton_3.setObjectName("radioButton_3")
         self.tabWidget.addTab(self.tab_2, "")
@@ -361,10 +362,6 @@ class Ui_Form(QWidget):
             return 10
         else:
             return 15
-
-    def progress(self):
-        self.open_ = progress_bar.chart_widget()
-        self.open_.show()
 
     def click_run(self):
         """点击后运行"""
@@ -446,10 +443,3 @@ class Ui_Form(QWidget):
         self.radioButton_2.setText(_translate("Form", "10"))
         self.radioButton_3.setText(_translate("Form", "15"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "设置"))
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    win = Ui_Form()
-    win.show()
-    sys.exit(app.exec())
