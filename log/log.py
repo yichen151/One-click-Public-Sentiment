@@ -96,7 +96,7 @@ def get_history_log():
             if lis[j][0] > lis[min_][0]:
                 min_ = j
                 lis[min_], lis[i] = lis[i], lis[min_]
-    re_list = [dirs[comb[1]] for comb in lis[:10]]
+    re_list = [dirs[comb[1]] for comb in lis]
     return re_list
 
 
