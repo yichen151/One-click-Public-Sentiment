@@ -1,8 +1,8 @@
 """爬取新浪新闻的类"""
 # -*- coding: UTF-8 -*-
-import aiohttp
-import requests
-import asyncio
+from aiohttp import ClientSession, ClientConnectionError, ClientConnectorError
+from requests import get
+from asyncio import get_event_loop, wait, create_task
 from lxml import etree
 from data_process.character_remove import get_rid_blank
 
@@ -27,7 +27,7 @@ class XinLang:
         for i in range(1, 6):
             url = self.base_url + f'{i}'
             try:
-                response = requests.get(url, headers=self.headers)
+                response = get(url, headers=self.headers)
                 data.append(response.json()['result']['data'])
             except ConnectionError and ConnectionRefusedError:
                 pass
@@ -38,7 +38,7 @@ class XinLang:
     async def get_text(self, url):
         """爬取新闻页面中的文本"""
         try:
-            async with aiohttp.ClientSession(headers=self.headers) as session:
+            async with ClientSession(headers=self.headers) as session:
                 async with session.get(url) as response:
                     html = await response.text()
                     tree = etree.HTML(html)
@@ -52,20 +52,20 @@ class XinLang:
                     if texts:
                         get_rid_blank(texts)
                         self.texts.append(texts)
-        except aiohttp.ContentTypeError:
+        except ClientConnectionError and ClientConnectorError:
             pass
 
     async def text_main(self):
         """爬去文本，协程方法"""
         tasks = []
         for url in self.urls:
-            task = asyncio.create_task(self.get_text(url))
+            task = create_task(self.get_text(url))
             tasks.append(task)
-        await asyncio.wait(tasks)
+        await wait(tasks)
 
     def run(self):
         self.get_page_urls()
-        loop = asyncio.get_event_loop()
+        loop = get_event_loop()
         loop.run_until_complete(self.text_main())
         for text in self.texts:
             for s in text:

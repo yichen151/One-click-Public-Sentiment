@@ -1,8 +1,8 @@
 """挖掘微博评论的类"""
 # -*- coding: UTF-8 -*-
-import asyncio
-import aiohttp
-import requests
+from asyncio import get_event_loop, wait, create_task
+from aiohttp import ClientSession, ClientConnectionError, ClientConnectorError
+from requests import get
 from data_process.character_remove import get_rid
 
 
@@ -33,7 +33,7 @@ class WeiBo:
     def get_text(self):
         """对第一个页面进行读取，返回的是第一个页面的评论的列表"""
         texts = []
-        with requests.get(self.first_url, headers=self.headers, params=self.first_params) as response:
+        with get(self.first_url, headers=self.headers, params=self.first_params) as response:
             dic = response.json()
             comments = dic['statuses']
             for comment in comments:
@@ -47,7 +47,7 @@ class WeiBo:
         """对第二次及以后的刷新进行读取，返回的是每次刷新到的评论列表"""
         texts = []
         try:
-            async with aiohttp.ClientSession(headers=self.headers) as session:
+            async with ClientSession(headers=self.headers) as session:
                 async with session.get(url, params=params) as response:
                     dic = await response.json()
                     comments = dic['statuses']
@@ -56,7 +56,7 @@ class WeiBo:
                         text = get_rid(text_raw)
                         texts.append(text)
             self.comments_lists.append(texts)
-        except aiohttp.ClientConnectorError and aiohttp.ClientConnectionError:
+        except ClientConnectorError and ClientConnectionError:
             pass
 
     async def main(self):
@@ -73,14 +73,14 @@ class WeiBo:
                 'max_id': i,
                 'count': 10
             }
-            task = asyncio.create_task(self.get_text_(refresh_url, params=refresh_params))
+            task = create_task(self.get_text_(refresh_url, params=refresh_params))
             tasks.append(task)
-        await asyncio.wait(tasks)
+        await wait(tasks)
 
     def run(self):
         """挖掘首页面，调用协程挖掘子页面"""
         self.get_text()
-        loop = asyncio.get_event_loop()
+        loop = get_event_loop()
         loop.run_until_complete(self.main())
         for comment_list in self.comments_lists:
             for comment in comment_list:

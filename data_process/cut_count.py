@@ -1,7 +1,7 @@
 """对字符串进行分词的类"""
 # -*- coding: UTF-8 -*-
-import jieba
-import json
+from jieba import load_userdict, lcut
+from json import dump
 from collections import Counter
 
 
@@ -19,8 +19,8 @@ class CutCount:
         word_count = Counter()
         # 加入一些网络热门词
         user_dict = './data_process/resource/user_dict.txt'
-        jieba.load_userdict(user_dict)
-        words_list = jieba.lcut(s, HMM=True, cut_all=True)
+        load_userdict(user_dict)
+        words_list = lcut(s, HMM=True, cut_all=True)
         self.words = ' '.join(words_list)
         for word in words_list:
             if len(word) > 1 and word not in self.stop_list:
@@ -31,4 +31,4 @@ class CutCount:
         """将词频信息保存"""
         dic = dict(self.count)
         with open(path, mode='w', encoding='utf-8') as f:
-            json.dump(dic, fp=f, indent=4)
+            dump(dic, fp=f, indent=4)

@@ -3,19 +3,20 @@
 文件和文件夹相对路径以run.py为基准
 """
 # -*- coding: UTF-8 -*-
-import os
-import datetime
-import json
-import re
+from os.path import exists
+from os import makedirs, listdir
+from datetime import datetime
+from json import load
+from re import compile, search
 
 
 def save_log(d_class, cut, cloud):
     """这个函数传入要保存的类和CutCount, Cloud两个类自动根据当前时间存放在log下的文件夹"""
-    date = datetime.datetime.today()
+    date = datetime.today()
     folder = f'./log/{d_class.name} {date.date()} {date.hour} {date.minute}'
-    is_exists = os.path.exists(folder)
+    is_exists = exists(folder)
     if not is_exists:
-        os.makedirs(folder)
+        makedirs(folder)
         cut_path = folder + '/count.json'
         cloud_path = folder + '/cloud.jpg'
         cut.save(cut_path)
@@ -29,9 +30,9 @@ def is_log(name):
     根据对应文件夹是否存在来控制爬取频率
     若存在则直接显示相应文件夹
     """
-    date = datetime.datetime.today()
+    date = datetime.today()
     folder = f'./log/{name} {date.date()} {date.hour} {date.minute}'
-    is_exists = os.path.exists(folder)
+    is_exists = exists(folder)
     if is_exists:
         return folder
     else:
@@ -40,7 +41,7 @@ def is_log(name):
 
 def get_log():
     """读取数据文件夹列表（升序）并返回"""
-    dirs = os.listdir('./log/')
+    dirs = listdir('./log/')
     dirs.remove('log.py')
     dirs.remove('__pycache__')
     dirs.sort()
@@ -67,7 +68,7 @@ def get_current_log(name, cnt):
     cloud_path = path + '/cloud.jpg'
     count_path = path + '/count.json'
     with open(count_path, 'r', encoding='utf-8') as fp:
-        dirt = json.load(fp)
+        dirt = load(fp)
     s = ''
     i = 0
     for key, value in dirt.items():
@@ -80,12 +81,12 @@ def get_current_log(name, cnt):
 
 def get_history_log():
     """获取历史最新的十个文件夹"""
-    pattern = re.compile(r' (?P<time>20.*)')
+    pattern = compile(r' (?P<time>20.*)')
     dirs = get_log()
     i = 0
     lis = []
     for item in dirs:
-        se = re.search(pattern, item)
+        se = search(pattern, item)
         time = se.group('time')
         lis.append((time, i))
         i += 1
@@ -105,7 +106,7 @@ def get_exact_log(log_name, cnt):
     cloud_path = path + '/cloud.jpg'
     count_path = path + '/count.json'
     with open(count_path, 'r', encoding='utf-8') as fp:
-        dirt = json.load(fp)
+        dirt = load(fp)
     s = ''
     i = 0
     for key, value in dirt.items():

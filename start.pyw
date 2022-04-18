@@ -1,6 +1,6 @@
 #!.\venv\Scripts\python.exe
 """UI界面初始化"""
-import sys
+from sys import argv, exit
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 from UI import interface
@@ -115,7 +115,7 @@ class Ui_LoadingWindow(QWidget):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QApplication(argv)
     win = Ui_LoadingWindow()
     win.show()
-    sys.exit(app.exec())
+    exit(app.exec())

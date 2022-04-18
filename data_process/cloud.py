@@ -1,8 +1,8 @@
 #!.\venv\Scripts\python.exe
 """生成词云的类"""
 # -*- coding: UTF-8 -*-
-import wordcloud
-import random
+from wordcloud import WordCloud
+from random import randint
 import matplotlib.pyplot as plt
 
 
@@ -19,15 +19,15 @@ class Cloud:
 
     def __init__(self, s):
         """根据字符串自动生成词云"""
-        font = self.fonts[random.randint(0, 1)]  # 从字体中随机选一个
-        mask_path = self.masks[random.randint(0, 1)]  # 从背景图中随机选一个
+        font = self.fonts[randint(0, 1)]  # 从字体中随机选一个
+        mask_path = self.masks[randint(0, 1)]  # 从背景图中随机选一个
         mask = plt.imread(mask_path)
         stop_file = './data_process/resource/stop_list.txt'
         stop_words = set()
         # 读取停用词
         stop_list = [line.strip() for line in open(stop_file, 'r', encoding='utf-8').readlines()]
         stop_words.update(stop_list)
-        self.cloud = wordcloud.WordCloud(
+        self.cloud = WordCloud(
             font_path=font,
             background_color='white',
             mask=mask,

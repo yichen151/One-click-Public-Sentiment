@@ -1,5 +1,4 @@
 """项目关于窗口"""
-import sys
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 
@@ -95,11 +94,3 @@ class Ui_Form(QWidget):
         self.label_4.setText(_translate("Form", "爬虫程序及数据处理：郭毅"))
         self.label_5.setText(_translate("Form", "UI制作：刘恒坤"))
         self.pushButton.setText(_translate("Form", "确定"))
-
-
-if __name__ == '__main__':
-    QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    app = QApplication(sys.argv)
-    win = Ui_Form()
-    win.show()
-    sys.exit(app.exec())

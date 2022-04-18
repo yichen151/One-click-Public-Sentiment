@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 from UI import about
 from log.log import get_current_log, is_log, get_history_log, get_exact_log
 from run import run
-import re
+from re import sub, compile
 
 
 class Ui_Form(QWidget):
@@ -391,21 +391,21 @@ class Ui_Form(QWidget):
 
     def HistoryUpdate(self):
         self.comboBox.clear()
-        wei = re.compile(r'weibo')
-        xin = re.compile(r'xinlang')
+        wei = compile(r'weibo')
+        xin = compile(r'xinlang')
         s_list = get_history_log()
         for s in s_list:
-            s = re.sub(wei, '微博热门', s)
-            s = re.sub(xin, '新浪新闻', s)
+            s = sub(wei, '微博热门', s)
+            s = sub(xin, '新浪新闻', s)
             self.comboBox.addItem(s)
 
     def click_history(self):
         num = self.SearchNum()
         time_ = self.comboBox.currentText()
-        wei = re.compile(r'微博热门')
-        xin = re.compile(r'新浪新闻')
-        time_ = re.sub(wei, 'weibo', time_)
-        time_ = re.sub(xin, 'xinlang', time_)
+        wei = compile(r'微博热门')
+        xin = compile(r'新浪新闻')
+        time_ = sub(wei, 'weibo', time_)
+        time_ = sub(xin, 'xinlang', time_)
         s, pic = get_exact_log(time_, num)
         self.label_36.setText(s)
         PictureFile = pic
