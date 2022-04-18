@@ -1,8 +1,8 @@
 """UI主界面"""
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
-from UI import about
-from log.log import get_current_log, is_log, get_history_log, get_exact_log
+import about
+from log import get_current_log, is_log, get_history_log, get_exact_log
 from run import run
 from re import sub, compile
 
@@ -407,11 +407,14 @@ class Ui_Form(QWidget):
         time_ = sub(wei, 'weibo', time_)
         time_ = sub(xin, 'xinlang', time_)
         s, pic = get_exact_log(time_, num)
-        self.label_36.setText(s)
-        PictureFile = pic
-        self.pm = QPixmap(PictureFile)
-        self.historypicture.setPixmap(self.pm)
-        self.historypicture.setScaledContents(True)
+        if s and pic:
+            self.label_36.setText(s)
+            PictureFile = pic
+            self.pm = QPixmap(PictureFile)
+            self.historypicture.setPixmap(self.pm)
+            self.historypicture.setScaledContents(True)
+        else:
+            pass
 
     def retranslateUi(self, Form):
         _translate = QCoreApplication.translate

@@ -3,7 +3,7 @@
 from asyncio import get_event_loop, wait, create_task
 from aiohttp import ClientSession, ClientConnectionError, ClientConnectorError
 from requests import get
-from data_process.character_remove import get_rid
+from character_remove import get_rid
 
 
 class WeiBo:

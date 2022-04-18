@@ -3,7 +3,7 @@
 from sys import argv, exit
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
-from UI import interface
+import interface
 
 
 class Ui_LoadingWindow(QWidget):

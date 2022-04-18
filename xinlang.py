@@ -4,7 +4,7 @@ from aiohttp import ClientSession, ClientConnectionError, ClientConnectorError
 from requests import get
 from asyncio import get_event_loop, wait, create_task
 from lxml import etree
-from data_process.character_remove import get_rid_blank
+from character_remove import get_rid_blank
 
 
 class XinLang:

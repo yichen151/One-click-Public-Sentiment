@@ -1,10 +1,10 @@
 """整合数据爬取和处理函数run"""
 # -*- coding: UTF-8 -*-
-from data_class.weibo import WeiBo
-from data_class.xinlang import XinLang
-from data_process.cut_count import CutCount
-from data_process.cloud import Cloud
-from log.log import save_log
+from weibo import WeiBo
+from xinlang import XinLang
+from cut_count import CutCount
+from cloud import Cloud
+from log import save_log
 
 
 def run(name):
