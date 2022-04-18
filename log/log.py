@@ -53,10 +53,7 @@ def get_current_log(name, cnt):
     dirs = get_log()
     if name == 'XinLang':
         # 新浪直接取最后一个
-        i = -1
-        while dirs[i][:7] == 'xinlang':
-            i -= 1
-        folder = dirs[i + 1]
+        folder = dirs[-1]
     else:
         # 微博要查找
         i = 0
