@@ -24,7 +24,7 @@ class XinLang:
     def get_page_urls(self):
         """爬取滚动页面上的url"""
         data = []
-        for i in range(1, 11):
+        for i in range(1, 6):
             url = self.base_url + f'{i}'
             try:
                 response = requests.get(url, headers=self.headers)

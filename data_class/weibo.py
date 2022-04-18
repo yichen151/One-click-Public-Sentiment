@@ -62,7 +62,7 @@ class WeiBo:
     async def main(self):
         """挖掘子页面，协程方法"""
         tasks = []
-        for i in range(2, 101):
+        for i in range(2, 51):
             refresh_url = 'https://weibo.com/ajax/feed/hottimeline?refresh=2&group_id=1028039999&containerid' \
                           f'=102803_ctg1_9999_-_ctg1_9999_home&extparam=discover|new_feed&max_id={i}&count=10'
             refresh_params = {
