@@ -3,11 +3,11 @@ from PyQt5.Qt import *
 from PyQt5.QtCore import *
 
 
-class Ui_Form(QWidget):
+class UiForm(QWidget):
     def __init__(self, parent=None):
         desktop = QApplication.desktop()
         width, height = int(desktop.width() / 4), int(desktop.height() / 3)
-        super(Ui_Form, self).__init__(parent)
+        super(UiForm, self).__init__(parent)
         self.setObjectName("Form")
         self.resize(width, height)
         self.setWindowFlag(Qt.FramelessWindowHint)
@@ -54,16 +54,12 @@ class Ui_Form(QWidget):
         font.setWeight(50)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
-        self.label_5 = QLabel(self)
-        self.label_5.setGeometry(QRect(int(0.15 * width), int(0.6 * height), int(0.5 * width), int(0.1 * height)))
         font = QFont()
         font.setFamily("幼圆")
         font.setPixelSize(int(0.05 * height))
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
         self.pushButton = QPushButton(self)
         self.pushButton.setGeometry(QRect(int(0.45 * width), int(0.8 * height), int(0.1 * width), int(0.1 * height)))
         font = QFont()
@@ -81,16 +77,14 @@ class Ui_Form(QWidget):
                                       "}\n"
                                       "")
         self.pushButton.clicked.connect(lambda: self.close())
-
-        self.retranslateUi(self)
+        self.translate_ui(self)
         QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, Form):
+    def translate_ui(self, form):
         _translate = QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "关于一键舆情"))
-        self.label_2.setText(_translate("Form", "一键舆情"))
-        self.label_3.setText(_translate("Form", "版本号：1.0.0"))
-        self.label_4.setText(_translate("Form", "爬虫程序及数据处理：郭毅"))
-        self.label_5.setText(_translate("Form", "UI制作：刘恒坤"))
+        self.label_2.setText(_translate("Form", "一键舆情：1.0.0"))
+        self.label_3.setText(_translate("Form", "制作人：郭毅"))
+        self.label_4.setText(_translate("Form", "爬虫程序&数据处理&pyqt"))
         self.pushButton.setText(_translate("Form", "确定"))

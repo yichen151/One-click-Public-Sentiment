@@ -7,7 +7,7 @@ from run import run
 from re import sub, compile
 
 
-class Ui_Form(QWidget):
+class UiForm(QWidget):
 
     def __init__(self, parent=None):
         self.open_ = None
@@ -15,19 +15,20 @@ class Ui_Form(QWidget):
         self.pm = None
         desktop = QApplication.desktop()
         width, height = int(desktop.width()/1.3), int(desktop.height()/1.3)
-        super(Ui_Form, self).__init__(parent)
+        super(UiForm, self).__init__(parent)
         self.resize(width, height)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.frame = QFrame(self)
         self.frame.setGeometry(QRect(0, 0, width, 70))
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
+        size_policy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        size_policy.setHorizontalStretch(0)
+        size_policy.setVerticalStretch(0)
+        size_policy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(size_policy)
         self.frame.setStyleSheet("QFrame\n"
                                  "{\n"
-                                 "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 248, 34, 150), stop:1 rgba(254, 255, 167, 150));\n"
+                                 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba("
+                                 "255, 248, 34, 150), stop:1 rgba(254, 255, 167, 150));\n "
                                  "}\n"
                                  "")
         self.frame.setFrameShape(QFrame.StyledPanel)
@@ -98,7 +99,7 @@ class Ui_Form(QWidget):
         menu = QMenu()
         About = QAction("关于...", parent=menu)
         menu.addAction(About)
-        About.triggered.connect(self.OpenAbout)
+        About.triggered.connect(self.open_about)
         self.pushButton_4.setMenu(menu)
         self.pushButton_4.setObjectName("pushButton_4")
         self.frame_2 = QFrame(self)
@@ -202,7 +203,8 @@ class Ui_Form(QWidget):
         self.pushButton_13.setFont(font)
         self.pushButton_13.setStyleSheet("QPushButton\n"
                                          "{\n"
-                                         "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(16, 171, 255, 150), stop:1 rgba(15, 251, 255, 150));\n"
+                                         "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, "
+                                         "stop:0 rgba(16, 171, 255, 150), stop:1 rgba(15, 251, 255, 150));\n "
                                          "    border-top-left-radius: 20px;\n"
                                          "    border-top-right-radius: 20px;\n"
                                          "    border-bottom-right-radius: 20px;\n"
@@ -210,7 +212,8 @@ class Ui_Form(QWidget):
                                          "}\n"
                                          "QPushButton:hover\n"
                                          "{\n"
-                                         "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(16, 171, 255, 250), stop:1 rgba(15, 251, 255, 250));\n"
+                                         "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, "
+                                         "stop:0 rgba(16, 171, 255, 250), stop:1 rgba(15, 251, 255, 250));\n "
                                          "}")
         self.pushButton_13.setObjectName("pushButton_13")
         self.pushButton_13.clicked.connect(self.click_run)
@@ -249,7 +252,7 @@ class Ui_Form(QWidget):
         self.comboBox.setFont(font)
         self.comboBox.setFocusPolicy(Qt.StrongFocus)
         self.comboBox.setObjectName("comboBox_2")
-        self.HistoryUpdate()
+        self.history_update()
         self.scrollArea_2 = QScrollArea(self.tab_3)
         self.scrollArea_2.setGeometry(QRect(int(0.015*width), int(0.15*height3), int(0.45*width), int(0.75*height3)))
         self.scrollArea_2.setMinimumSize(QSize(0, 0))
@@ -278,7 +281,8 @@ class Ui_Form(QWidget):
         self.pushButton_14.setFont(font)
         self.pushButton_14.setStyleSheet("QPushButton\n"
                                          "{\n"
-                                         "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(16, 171, 255, 150), stop:1 rgba(15, 251, 255, 150));\n"
+                                         "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, "
+                                         "stop:0 rgba(16, 171, 255, 150), stop:1 rgba(15, 251, 255, 150));\n "
                                          "    border-top-left-radius: 20px;\n"
                                          "    border-top-right-radius: 20px;\n"
                                          "    border-bottom-right-radius: 20px;\n"
@@ -286,7 +290,8 @@ class Ui_Form(QWidget):
                                          "}\n"
                                          "QPushButton:hover\n"
                                          "{\n"
-                                         "    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(16, 171, 255, 250), stop:1 rgba(15, 251, 255, 250));\n"
+                                         "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, "
+                                         "stop:0 rgba(16, 171, 255, 250), stop:1 rgba(15, 251, 255, 250));\n "
                                          "}")
         self.pushButton_14.setObjectName("pushButton_13")
         self.pushButton_14.clicked.connect(self.click_history)
@@ -351,11 +356,11 @@ class Ui_Form(QWidget):
         self.radioButton_3.setObjectName("radioButton_3")
         self.tabWidget.addTab(self.tab_2, "")
 
-        self.retranslateUi(self)
+        self.translate_ui(self)
         self.tabWidget.setCurrentIndex(0)
         QMetaObject.connectSlotsByName(self)
 
-    def SearchNum(self):
+    def search_num(self):
         if self.radioButton.isChecked():
             return 5
         elif self.radioButton_2.isChecked():
@@ -365,7 +370,7 @@ class Ui_Form(QWidget):
 
     def click_run(self):
         """点击后运行"""
-        num = self.SearchNum()
+        num = self.search_num()
         name = self.comboBox_2.currentText()
         if name == "微博热门":
             if is_log('weibo'):
@@ -383,13 +388,13 @@ class Ui_Form(QWidget):
         self.pm = QPixmap(pic)
         self.picture.setPixmap(self.pm)
         self.picture.setScaledContents(True)
-        self.HistoryUpdate()
+        self.history_update()
 
-    def OpenAbout(self):
-        self.open = about.Ui_Form()
+    def open_about(self):
+        self.open = about.UiForm()
         self.open.show()
 
-    def HistoryUpdate(self):
+    def history_update(self):
         self.comboBox.clear()
         wei = compile(r'weibo')
         xin = compile(r'xinlang')
@@ -400,7 +405,7 @@ class Ui_Form(QWidget):
             self.comboBox.addItem(s)
 
     def click_history(self):
-        num = self.SearchNum()
+        num = self.search_num()
         time_ = self.comboBox.currentText()
         wei = compile(r'微博热门')
         xin = compile(r'新浪新闻')
@@ -408,14 +413,14 @@ class Ui_Form(QWidget):
         time_ = sub(xin, 'xinlang', time_)
         s, pic = get_exact_log(time_, num)
         self.label_36.setText(s)
-        PictureFile = pic
-        self.pm = QPixmap(PictureFile)
+        picture_file = pic
+        self.pm = QPixmap(picture_file)
         self.historypicture.setPixmap(self.pm)
         self.historypicture.setScaledContents(True)
 
-    def retranslateUi(self, Form):
+    def translate_ui(self, form):
         _translate = QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "×"))
         self.pushButton_3.setText(_translate("Form", "-"))
         self.label.setText(_translate("Form", "一键舆情"))
